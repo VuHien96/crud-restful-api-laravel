@@ -19,6 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/categories','App\Http\Controllers\CategoryController');
-
 Route::apiResource('/products', 'App\Http\Controllers\ProductController');
+
+Route::get('/files','App\Http\Controllers\FileController@index');
+Route::post('/upload','App\Http\Controllers\FileController@uploadFile');
+Route::delete('delete/upload-folder/{file}', 'App\Http\Controllers\FileController@deleteFile');
+Route::get('download/upload-folder/{file}', 'App\Http\Controllers\FileController@downloadFile');
 

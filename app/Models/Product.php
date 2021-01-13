@@ -15,4 +15,9 @@ class Product extends Model
         'price',
         'status'
     ];
+
+//    protected $hidden =[
+//        'id',
+//        'status'
+//    ];
 }

@@ -15,10 +15,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $product = Product::orderBy('id', 'desc')->paginate(3);
+        $filter = $request->query('filter');
+        if (!empty($filter)){
+            $product = Product::orderBy('id', 'desc')->where('products.name', 'like', '%'.$filter.'%')->paginate(3);
+        }else{
+            $product = Product::orderBy('id', 'desc')->paginate(3);
+        }
         $response = APIHelpers::apiResponse(false,200,'get all ',$product);
 
         return response()->json($response,200);

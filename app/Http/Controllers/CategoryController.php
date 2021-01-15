@@ -17,15 +17,17 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         //
-        $filter = $request->query('filter');
-        if (!empty($filter)) {
-            $categoires = Category::orderBy('id', 'desc')->where('categories.name', 'like', '%' . $filter . '%')->paginate(3);
-        } else {
-            $categoires = Category::orderBy('id', 'desc')->paginate(3);
-        }
-        $response = APIHelpers::apiResponse(false, 200, 'get all ', $categoires);
+//        $filter = $request->query('filter');
+//        if (!empty($filter)) {
+//            $categoires = Category::orderBy('id', 'desc')->where('categories.name', 'like', '%' . $filter . '%')->paginate(3);
+//        } else {
+//            $categoires = Category::orderBy('id', 'desc')->paginate(3);
+//        }
+//        $response = APIHelpers::apiResponse(false, 200, 'get all ', $categoires);
 
-        return response()->json($response, 200);
+        $categoires = Category::orderBy('id', 'desc')->get();
+        return APIHelpers::success($categoires,200,"Get ALL");
+
 
 
     }
@@ -43,12 +45,10 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
 
-        if ($category->save()) {
-            $response = APIHelpers::apiResponse(false, 201, 'Category created successfully', $category);
-            return response($response, 200);
-        } else {
-            $response = APIHelpers::apiResponse(true, 400, 'Category created failed', null);
-            return response($response, 400);
+        if ($category->save()){
+            return APIHelpers::success($category,201,"Category created successfully");
+        }else{
+            return APIHelpers::error(null,400,"Category created failed");
         }
     }
 
@@ -66,7 +66,7 @@ class CategoryController extends Controller
             throw new NotFoundException("Category not found");
         }
 
-        return response()->json($category);
+        return APIHelpers::success($category,200,"");
 
     }
 
@@ -86,13 +86,10 @@ class CategoryController extends Controller
         }
         $category->name = $request->name;
         $category->description = $request->description;
-
         if ($category->save()) {
-            $response = APIHelpers::apiResponse(false, 200, 'Category updated successfully', $category);
-            return response($response, 200);
+            return APIHelpers::success($category,200,"Category updated successfully");
         } else {
-            $response = APIHelpers::apiResponse(true, 200, 'Category updated failed', null);
-            return response($response, 200);
+            return APIHelpers::error(null,400,"Category updated failed");
         }
     }
 
@@ -110,6 +107,6 @@ class CategoryController extends Controller
             throw new NotFoundException("Category not found", 404);
         }
         $category->delete();
-        return response("Delete category success");
+        return APIHelpers::success("",200,"Delete category success");
     }
 }

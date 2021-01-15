@@ -18,16 +18,15 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        $filter = $request->query('filter');
-        if (!empty($filter)) {
-            $product = Product::orderBy('id', 'desc')->where('products.name', 'like', '%' . $filter . '%')->paginate(3);
-        } else {
-            $product = Product::orderBy('id', 'desc')->paginate(3);
-        }
-        $response = APIHelpers::apiResponse(false, 200, 'get all ', $product);
 
-        return response()->json($response, 200);
+//        $filter = $request->query('filter');
+//        if (!empty($filter)) {
+//            $product = Product::orderBy('id', 'desc')->where('products.name', 'like', '%' . $filter . '%')->paginate(3);
+//        } else {
+//            $product = Product::orderBy('id', 'desc')->paginate(3);
+//        }
+        $product = Product::orderBy('id', 'desc')->get();
+        return APIHelpers::success($product,200,'Get all');
     }
 
     /**
@@ -40,20 +39,18 @@ class ProductController extends Controller
     {
 
         $category = Category::find($request->category_id);
-        if ($category == null) {
-            throw new NotFoundException('Danh muc không tồn tại',404);
-        }
+//        if ($category == null) {
+//            throw new NotFoundException('Danh muc không tồn tại',404);
+//        }
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->status = $request->status;
         if ($category->products()->save($product)) {
-            $response = APIHelpers::apiResponse(false, 201, 'Product created successfully ', $product);
-            return response()->json($response, 200);
+            return APIHelpers::success($product,201,"Product created successfully");
         } else {
-            $response = APIHelpers::apiResponse(true, 400, 'Product created failed', null);
-            return response()->json($response, 400);
+            return APIHelpers::error(null,400,"Product created failed");
         }
     }
 
@@ -70,7 +67,7 @@ class ProductController extends Controller
         if (is_null($product)) {
             throw new NotFoundException();
         }
-        return response()->json($product);
+        return APIHelpers::success($product);
     }
 
     /**
@@ -88,21 +85,18 @@ class ProductController extends Controller
             throw new NotFoundException();
         }
         $category = Category::find($request->category_id);
-        if ($category == null) {
-            throw new NotFoundException('Danh muc không tồn tại',404);
-        }
+//        if ($category == null) {
+//            throw new NotFoundException('Danh muc không tồn tại',404);
+//        }
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->status = $request->status;
         if ($category->products()->save($product)) {
-            $response = APIHelpers::apiResponse(false, 200, 'Product updated successfully', $product);
-            return response()->json($response, 200);
+            return APIHelpers::success($product,200,"Product updated successfully");
         } else {
-            $response = APIHelpers::apiResponse(true, 400, 'Product updated failed', null);
-            return response()->json($response, 400);
+            return APIHelpers::error(null,400,"Product updated failed");
         }
-        return response()->json($product);
     }
 
     /**
@@ -119,6 +113,6 @@ class ProductController extends Controller
             throw new NotFoundException();
         }
         $product->delete();
-        return response()->json("Product successfully deleted");
+        return APIHelpers::success(null,200,"Product successfully deleted");
     }
 }

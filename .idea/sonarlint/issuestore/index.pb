@@ -9,8 +9,6 @@ S
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
 S
 #database/seeders/DatabaseSeeder.php,a\c\aca1efccd4101e0c9bdd34803577859ace08ef45
-o
-?database/migrations/2021_01_12_092127_create_products_table.php,3\8\3829394fd753356d616922500a7a85ffab88e90b
 q
 Adatabase/migrations/2021_01_12_095549_create_categories_table.php,3\8\3859b2718b61555a43b1f3e33896c26f2c1bbbe7
 [
@@ -61,3 +59,13 @@ C
 app/Models/User.php,a\9\a90f2e50cb06863b54effced365aa5f1fe7d9c88
 W
 'app/Http/Controllers/AuthController.php,3\1\31d283052936b2e7a79a7aa05dd75800e2abe438
+T
+$app/Providers/AppServiceProvider.php,4\8\48b8d8112e9bdd32ee7e25b1224d6739eece1e72
+U
+%app/Providers/AuthServiceProvider.php,a\5\a526ceaeed37cec3622903d924e7bbaf01d42971
+C
+app/Http/Kernel.php,4\0\405f423e61f666bcedb754ae8befdce9e746176e
+r
+Bdatabase/migrations/2019_08_19_000000_create_failed_jobs_table.php,1\f\1f602a21e13ac2fa47afd78866311d456f21841f
+o
+?database/migrations/2021_01_14_034805_create_products_table.php,2\f\2fe555f0bdb2da4510eb35c2a716ceb408238e4b
